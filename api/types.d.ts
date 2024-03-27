@@ -1,4 +1,4 @@
-import {Model} from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 /* Schema Fields */
 export interface UserFields {
@@ -11,11 +11,33 @@ export interface UserFields {
   token: string;
 }
 
+export interface CocktailFields {
+  user: mongoose.Types.ObjectId;
+  name: string;
+  image: string;
+  recipe: string;
+  ingredients: Ingredient[];
+  isPublished: boolean;
+}
+
+export interface Ingredient {
+  name: string;
+  amount: string;
+}
+
+export interface CocktailMutation {
+  user: mongoose.Types.ObjectId | undefined;
+  name: string;
+  image: string | null;
+  recipe: string;
+  ingredients: Ingredient[];
+}
+
 /* Schema Methods */
 
 interface UserMethods {
   checkPassword(password: string): Promise<boolean>;
-  
+
   generateToken(): void;
 }
 
