@@ -7,6 +7,29 @@ export interface User {
   avatar: string;
 }
 
+export interface Cocktail {
+  _id: string;
+  name: string;
+  image: string;
+  isPublished: boolean;
+}
+
+export interface CocktailApi {
+  _id: string;
+  user: string;
+  name: string;
+  image: string;
+  recipe: string;
+  ingredients: Ingredient[];
+  isPublished: boolean;
+}
+
+export interface Ingredient {
+  _id: string;
+  name: string;
+  amount: string;
+}
+
 export interface RegisterMutation {
   email: string;
   displayName: string;

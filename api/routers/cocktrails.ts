@@ -2,8 +2,8 @@ import { Router } from 'express';
 import auth, { RequestWithUser } from '../middleware/auth';
 import permit from '../middleware/permit';
 import { imagesUpload } from '../multer';
-import mongoose, { Types } from 'mongoose';
-import { CocktailMutation } from '../types';
+import mongoose, { FilterQuery, Types } from 'mongoose';
+import { CocktailFields, CocktailMutation } from '../types';
 import Cocktail from '../models/Cocktail';
 import user from '../middleware/user';
 
@@ -11,27 +11,29 @@ const cocktailsRouter = Router();
 
 cocktailsRouter.get('/', user, async (req: RequestWithUser, res, next) => {
   try {
-    let cocktails;
+    let filter: FilterQuery<CocktailFields> = {};
 
     if (req.user) {
       const isAdmin = req.user.role === 'admin';
       const isUser = req.user.role === 'user';
 
       if (isAdmin) {
-        cocktails = await Cocktail.find();
-      }
-
-      if (isUser) {
-        cocktails = await Cocktail.find({
+        filter = {};
+      } else if (isUser) {
+        filter = {
           $or: [
             { isPublished: true },
             { user: req.user._id, isPublished: false },
           ],
-        });
+        };
       }
     } else {
-      cocktails = await Cocktail.find({ isPublished: true });
+      filter = { isPublished: true };
     }
+
+    const cocktails = await Cocktail.find(filter).select(
+      '-user -recipe -ingredients',
+    );
 
     return res.send(cocktails);
   } catch (e) {

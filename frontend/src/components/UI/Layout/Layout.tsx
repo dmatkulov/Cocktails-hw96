@@ -7,7 +7,6 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <Container
       maxWidth="lg"
       sx={{
-        borderLeft: '1px solid #efefef',
         height: '100vh',
         position: 'relative',
       }}

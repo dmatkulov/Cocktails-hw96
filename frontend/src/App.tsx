@@ -6,6 +6,8 @@ import Layout from './components/UI/Layout/Layout';
 import NotFound from './components/UI/NotFound/NotFound';
 import RegisterUser from './features/users/containers/RegisterUser';
 import LoginUser from './features/users/containers/LoginUser';
+import Home from './features/cocktails/Home';
+import Recipe from './features/cocktails/Recipe';
 
 function App() {
   return (
@@ -14,7 +16,8 @@ function App() {
         <Routes>
           <Route path={routes.register} element={<RegisterUser />} />
           <Route path={routes.login} element={<LoginUser />} />
-          <Route path={routes.home} element={<h2> App will be here</h2>} />
+          <Route path={routes.home} element={<Home />} />
+          <Route path={`${routes.recipes}/:id`} element={<Recipe />} />
           <Route path={routes.notFound} element={<NotFound />} />
         </Routes>
       </Layout>

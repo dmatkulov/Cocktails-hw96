@@ -169,7 +169,7 @@ const RegisterUser: React.FC = () => {
           </Grid>
           <Grid container justifyContent="center" mb={4}>
             <Grid item>
-              <Link component={RouterLink} to="/login" variant="body2">
+              <Link component={RouterLink} to={routes.login} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

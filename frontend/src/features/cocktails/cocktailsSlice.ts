@@ -1,0 +1,101 @@
+import { Cocktail, CocktailApi, ValidationError } from '../../types';
+import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
+import {
+  deleteCocktail,
+  fetchCocktails,
+  fetchOne,
+  publishCocktail,
+} from './cocktailsThunks';
+
+interface CocktailsState {
+  items: Cocktail[];
+  item: CocktailApi | null;
+  fetchLoading: boolean;
+  fetchOneLoading: boolean;
+  createLoading: boolean;
+  createError: ValidationError | null;
+  publishLoading: boolean;
+  deleteLoading: boolean;
+}
+
+const initialState: CocktailsState = {
+  items: [],
+  item: null,
+  fetchLoading: false,
+  fetchOneLoading: false,
+  createLoading: false,
+  createError: null,
+  publishLoading: false,
+  deleteLoading: false,
+};
+
+export const cocktailSlice = createSlice({
+  name: 'cocktails',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCocktails.pending, (state) => {
+        state.fetchLoading = true;
+      })
+      .addCase(fetchCocktails.fulfilled, (state, { payload: cocktails }) => {
+        state.fetchLoading = false;
+        state.items = cocktails;
+      })
+      .addCase(fetchCocktails.rejected, (state) => {
+        state.fetchLoading = false;
+      });
+
+    builder
+      .addCase(fetchOne.pending, (state) => {
+        state.fetchOneLoading = true;
+      })
+      .addCase(fetchOne.fulfilled, (state, { payload: cocktail }) => {
+        state.fetchOneLoading = false;
+        state.item = cocktail;
+      })
+      .addCase(fetchOne.rejected, (state) => {
+        state.fetchOneLoading = false;
+      });
+
+    builder
+      .addCase(publishCocktail.pending, (state) => {
+        state.publishLoading = true;
+      })
+      .addCase(publishCocktail.fulfilled, (state) => {
+        state.publishLoading = false;
+      })
+      .addCase(publishCocktail.rejected, (state) => {
+        state.publishLoading = false;
+      });
+
+    builder
+      .addCase(deleteCocktail.pending, (state) => {
+        state.deleteLoading = true;
+      })
+      .addCase(deleteCocktail.fulfilled, (state) => {
+        state.deleteLoading = false;
+      })
+      .addCase(deleteCocktail.rejected, (state) => {
+        state.deleteLoading = false;
+      });
+  },
+});
+
+export const cocktailsReducer = cocktailSlice.reducer;
+
+export const selectCocktails = (state: RootState) => state.cocktails.items;
+export const selectCocktail = (state: RootState) => state.cocktails.item;
+export const selectCocktailsLoading = (state: RootState) =>
+  state.cocktails.fetchLoading;
+export const selectOneLoading = (state: RootState) =>
+  state.cocktails.fetchOneLoading;
+export const selectCocktailsCreateLoading = (state: RootState) =>
+  state.cocktails.createLoading;
+export const selectCocktailsCreateError = (state: RootState) =>
+  state.cocktails.createError;
+export const selectCocktailsPublishLoading = (state: RootState) =>
+  state.cocktails.publishLoading;
+export const selectCocktailsDeleteLoading = (state: RootState) =>
+  state.cocktails.deleteLoading;

@@ -33,6 +33,7 @@ const AppToolbar = () => {
         textAlign: 'center',
         borderBottom: '1px solid #efefef',
         mt: 2,
+        mb: '50px',
       }}
     >
       <Toolbar disableGutters>

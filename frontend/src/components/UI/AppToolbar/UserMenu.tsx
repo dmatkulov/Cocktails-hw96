@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { logOut } from '../../../features/users/usersThunks';
 import { selectLogOutLoading } from '../../../features/users/usersSlice';
 import { apiURL, routes } from '../../../utils/constants';
+import { fetchCocktails } from '../../../features/cocktails/cocktailsThunks';
 
 interface Props {
   user: User;
@@ -30,7 +31,8 @@ const UserMenu: React.FC<Props> = ({ user }) => {
   const handleClose = () => setAnchorEl(null);
 
   const handleLogOut = async () => {
-    await dispatch(logOut());
+    await dispatch(logOut()).unwrap();
+    await dispatch(fetchCocktails()).unwrap();
     navigate('/');
   };
 
@@ -66,9 +68,16 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           horizontal: 'right',
         }}
       >
-        <MenuItem onClick={() => navigate(routes.userCocktail)}>
-          My cocktails
-        </MenuItem>
+        {user && user.role === 'user' && (
+          <MenuItem onClick={() => navigate(routes.userCocktail)}>
+            My cocktails
+          </MenuItem>
+        )}
+        {user && user.role === 'user' && (
+          <MenuItem onClick={() => navigate(routes.newCocktail)}>
+            Add new cocktail
+          </MenuItem>
+        )}
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
       </Menu>
     </>

@@ -128,7 +128,7 @@ const LoginUser: React.FC = () => {
           </Grid>
           <Grid container justifyContent="center" mb={4}>
             <Grid item>
-              <Link component={RouterLink} to="/register" variant="body2">
+              <Link component={RouterLink} to={routes.register} variant="body2">
                 New user? Sign Up
               </Link>
             </Grid>
