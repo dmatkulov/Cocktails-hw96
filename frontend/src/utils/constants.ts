@@ -16,4 +16,5 @@ export const routes = {
   login: '/login',
   newCocktail: '/new-cocktail',
   userCocktail: '/my-cocktails',
+  notFound: '*',
 };

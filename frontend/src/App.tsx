@@ -1,14 +1,21 @@
+import { Route, Routes } from 'react-router-dom';
+
+import { routes } from './utils/constants';
+
 import Layout from './components/UI/Layout/Layout';
 import NotFound from './components/UI/NotFound/NotFound';
-import { Route, Routes } from 'react-router-dom';
+import RegisterUser from './features/users/containers/RegisterUser';
+import LoginUser from './features/users/containers/LoginUser';
 
 function App() {
   return (
     <>
       <Layout>
         <Routes>
-          <Route path="/" element={<h2> App will be here</h2>} />
-          <Route path="*" element={<NotFound />} />
+          <Route path={routes.register} element={<RegisterUser />} />
+          <Route path={routes.login} element={<LoginUser />} />
+          <Route path={routes.home} element={<h2> App will be here</h2>} />
+          <Route path={routes.notFound} element={<NotFound />} />
         </Routes>
       </Layout>
     </>
