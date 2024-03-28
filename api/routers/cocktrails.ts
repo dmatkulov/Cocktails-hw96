@@ -39,6 +39,28 @@ cocktailsRouter.get('/', user, async (req: RequestWithUser, res, next) => {
   }
 });
 
+cocktailsRouter.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    try {
+      new Types.ObjectId(id);
+    } catch {
+      return res.status(404).send({ error: 'Wrong ID!' });
+    }
+
+    const cocktail = await Cocktail.findById(id);
+
+    if (!cocktail) {
+      return res.status(404).send({ error: 'Not found' });
+    }
+
+    return res.send(cocktail);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 cocktailsRouter.post(
   '/',
   auth,
