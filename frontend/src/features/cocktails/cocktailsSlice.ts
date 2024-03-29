@@ -41,7 +41,11 @@ const initialState: CocktailsState = {
 export const cocktailSlice = createSlice({
   name: 'cocktails',
   initialState,
-  reducers: {},
+  reducers: {
+    hideToastMessage: (state) => {
+      state.createMessage = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCocktails.pending, (state) => {
@@ -105,6 +109,8 @@ export const cocktailSlice = createSlice({
 });
 
 export const cocktailsReducer = cocktailSlice.reducer;
+
+export const { hideToastMessage } = cocktailSlice.actions;
 
 export const selectCocktails = (state: RootState) => state.cocktails.items;
 export const selectCocktail = (state: RootState) => state.cocktails.item;

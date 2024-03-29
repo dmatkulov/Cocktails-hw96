@@ -17,9 +17,9 @@ const Home: React.FC = () => {
   }, [dispatch]);
 
   let contentArea: React.ReactNode | null;
-  const filteredByUser = cocktails.filter((item) => item.isPublished);
 
   if (user && user.role === 'user') {
+    const filteredByUser = cocktails.filter((item) => item.isPublished);
     contentArea = filteredByUser.map((item) => (
       <Grid item xs={4} key={item._id}>
         <CardItem cocktail={item} />

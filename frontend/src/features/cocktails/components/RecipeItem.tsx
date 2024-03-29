@@ -109,7 +109,7 @@ const RecipeItem: React.FC<Props> = ({ cocktail }) => {
                 container
                 key={ing._id}
                 alignItems="center"
-                sx={{ backgroundColor: i % 2 && '#ececec' }}
+                sx={{ backgroundColor: i % 2 ? 'white' : '#ececec' }}
                 px={2}
                 py={1}
               >

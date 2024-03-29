@@ -36,11 +36,7 @@ function App() {
           <Route
             path={routes.newCocktail}
             element={
-              <ProtectedRoute
-                isAllowed={
-                  user && (user.role === 'admin' || user.role === 'user')
-                }
-              >
+              <ProtectedRoute isAllowed={user && user.role === 'user'}>
                 <NewRecipe />
               </ProtectedRoute>
             }

@@ -83,7 +83,10 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
           />
         </Grid>
         <Grid item xs>
-          <IngredientForm onChange={changeIngredient} />
+          <IngredientForm
+            onChange={changeIngredient}
+            getFieldError={getFieldError}
+          />
         </Grid>
         <Grid item xs>
           <TextField
@@ -101,6 +104,7 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
           <FileInput
             name="image"
             label="Image"
+            getFieldError={getFieldError}
             onChange={fileInputChangeHandler}
           />
         </Grid>

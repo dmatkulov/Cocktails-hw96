@@ -6,9 +6,10 @@ import { IngredientMutation } from '../../../types';
 
 interface Props {
   onChange: (ingredients: IngredientMutation[]) => void;
+  getFieldError: (name: string) => string | undefined;
 }
 
-const IngredientForm: React.FC<Props> = ({ onChange }) => {
+const IngredientForm: React.FC<Props> = ({ onChange, getFieldError }) => {
   const [ingredients, setIngredients] = useState<IngredientMutation[]>([
     {
       name: '',
@@ -61,6 +62,8 @@ const IngredientForm: React.FC<Props> = ({ onChange }) => {
                 name="name"
                 type="text"
                 value={ingredient.name}
+                error={Boolean(getFieldError('ingredients'))}
+                helperText={getFieldError('ingredients')}
                 onChange={(event) => changeIngredient(event, i)}
               />
             </Grid>
@@ -71,6 +74,8 @@ const IngredientForm: React.FC<Props> = ({ onChange }) => {
                 name="amount"
                 type="text"
                 value={ingredient.amount}
+                error={Boolean(getFieldError('ingredients'))}
+                helperText={getFieldError('ingredients')}
                 onChange={(event) => changeIngredient(event, i)}
               />
             </Grid>
