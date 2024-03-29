@@ -93,7 +93,7 @@ const RecipeItem: React.FC<Props> = ({ cocktail }) => {
           {user && !cocktail.isPublished && (
             <Chip label="Unpublished" color="error" size="small" />
           )}
-          <Stack mb={3}>
+          <Stack mb={3} mt={2}>
             <Typography gutterBottom variant="subtitle1" fontWeight="bold">
               Recipe:
             </Typography>

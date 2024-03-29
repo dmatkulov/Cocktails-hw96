@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './theme';
 
-import { addInterceptors } from './axiosApi';
+import { addInterceptors } from './utils/axiosApi';
 import { persistor, store } from './app/store';
 import { GOOGLE_CLIENT_ID } from './utils/constants';
 import App from './App';

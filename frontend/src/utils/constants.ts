@@ -15,7 +15,7 @@ export const routes = {
   register: '/register',
   login: '/login',
   newCocktail: '/new-cocktail',
-  userCocktail: '/my-cocktails',
+  userRecipes: '/my-recipes',
   recipes: '/recipes',
   notFound: '*',
 };

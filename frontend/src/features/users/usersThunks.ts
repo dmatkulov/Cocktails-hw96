@@ -6,7 +6,7 @@ import {
   RegisterResponse,
   ValidationError,
 } from '../../types';
-import axiosApi from '../../axiosApi';
+import axiosApi from '../../utils/axiosApi';
 import { axiosRoutes } from '../../utils/constants';
 import { isAxiosError } from 'axios';
 import { RootState } from '../../app/store';

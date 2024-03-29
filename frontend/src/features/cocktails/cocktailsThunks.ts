@@ -1,7 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Cocktail, CocktailApi } from '../../types';
-import axiosApi from '../../axiosApi';
+import {
+  Cocktail,
+  CocktailApi,
+  CocktailMutation,
+  CocktailResponse,
+  ValidationError,
+} from '../../types';
+import axiosApi from '../../utils/axiosApi';
 import { axiosRoutes } from '../../utils/constants';
+import { isAxiosError } from 'axios';
 
 export const fetchCocktails = createAsyncThunk<Cocktail[]>(
   'cocktails/fetchAll',
@@ -10,6 +17,34 @@ export const fetchCocktails = createAsyncThunk<Cocktail[]>(
     return response.data ?? [];
   },
 );
+
+export const createCocktail = createAsyncThunk<
+  CocktailResponse,
+  CocktailMutation,
+  { rejectValue: ValidationError }
+>('cocktails/create', async (cocktailMutation, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+
+    const keys = Object.keys(cocktailMutation) as (keyof CocktailMutation)[];
+    keys.forEach((key) => {
+      const value = cocktailMutation[key];
+
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
+
+    const response = await axiosApi.post(axiosRoutes.cocktails, formData);
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 422) {
+      return rejectWithValue(e.response.data);
+    }
+
+    throw e;
+  }
+});
 
 export const fetchOne = createAsyncThunk<CocktailApi, string>(
   'cocktails/fetchOne',

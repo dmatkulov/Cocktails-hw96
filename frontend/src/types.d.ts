@@ -30,6 +30,15 @@ export interface Ingredient {
   amount: string;
 }
 
+export type IngredientMutation = Omit<Ingredient, '_id'>;
+
+export interface CocktailMutation {
+  name: string;
+  image: File | null;
+  recipe: string;
+  ingredients: string;
+}
+
 export interface RegisterMutation {
   email: string;
   displayName: string;
@@ -45,6 +54,10 @@ export interface LoginMutation {
 //errors & responses
 export interface RegisterResponse {
   user: User;
+}
+
+export interface CocktailResponse {
+  message: string;
 }
 
 export interface ValidationError {

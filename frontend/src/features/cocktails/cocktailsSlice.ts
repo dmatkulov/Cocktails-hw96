@@ -1,7 +1,13 @@
-import { Cocktail, CocktailApi, ValidationError } from '../../types';
+import {
+  Cocktail,
+  CocktailApi,
+  CocktailResponse,
+  ValidationError,
+} from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
+  createCocktail,
   deleteCocktail,
   fetchCocktails,
   fetchOne,
@@ -15,6 +21,7 @@ interface CocktailsState {
   fetchOneLoading: boolean;
   createLoading: boolean;
   createError: ValidationError | null;
+  createMessage: CocktailResponse | null;
   publishLoading: boolean;
   deleteLoading: boolean;
 }
@@ -26,6 +33,7 @@ const initialState: CocktailsState = {
   fetchOneLoading: false,
   createLoading: false,
   createError: null,
+  createMessage: null,
   publishLoading: false,
   deleteLoading: false,
 };
@@ -57,6 +65,19 @@ export const cocktailSlice = createSlice({
       })
       .addCase(fetchOne.rejected, (state) => {
         state.fetchOneLoading = false;
+      });
+
+    builder
+      .addCase(createCocktail.pending, (state) => {
+        state.createLoading = true;
+      })
+      .addCase(createCocktail.fulfilled, (state, { payload: message }) => {
+        state.createLoading = false;
+        state.createMessage = message;
+      })
+      .addCase(createCocktail.rejected, (state, { payload: error }) => {
+        state.createLoading = false;
+        state.createError = error || null;
       });
 
     builder
@@ -95,6 +116,8 @@ export const selectCocktailsCreateLoading = (state: RootState) =>
   state.cocktails.createLoading;
 export const selectCocktailsCreateError = (state: RootState) =>
   state.cocktails.createError;
+export const selectCreateMessage = (state: RootState) =>
+  state.cocktails.createMessage;
 export const selectCocktailsPublishLoading = (state: RootState) =>
   state.cocktails.publishLoading;
 export const selectCocktailsDeleteLoading = (state: RootState) =>

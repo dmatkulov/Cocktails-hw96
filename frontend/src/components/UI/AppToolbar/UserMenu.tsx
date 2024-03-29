@@ -42,7 +42,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       <Stack direction="row" alignItems="center">
         <Typography color="text.primary">{user.displayName}</Typography>
         <IconButton
-          onClick={handleClick}
+          onMouseOver={handleClick}
           sx={{ display: 'flex', gap: 1 }}
           disableRipple
         >
@@ -69,7 +69,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         }}
       >
         {user && user.role === 'user' && (
-          <MenuItem onClick={() => navigate(routes.userCocktail)}>
+          <MenuItem onClick={() => navigate(routes.userRecipes)}>
             My cocktails
           </MenuItem>
         )}
