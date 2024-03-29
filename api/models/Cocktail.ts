@@ -1,5 +1,5 @@
 import mongoose, { Schema, Types } from 'mongoose';
-import { CocktailFields } from '../types';
+import { CocktailFields, Ingredient } from '../types';
 import User from './User';
 
 const CocktailSchema = new mongoose.Schema<CocktailFields>({
@@ -35,8 +35,13 @@ const CocktailSchema = new mongoose.Schema<CocktailFields>({
         amount: String,
       },
     ],
-    required: true,
-    default: [],
+    required: [true, 'Ingredients must be present'],
+    validate: {
+      validator: (value: Ingredient[]) => {
+        return value.length > 0;
+      },
+      message: 'Cannot be empty',
+    },
   },
   isPublished: {
     type: Boolean,

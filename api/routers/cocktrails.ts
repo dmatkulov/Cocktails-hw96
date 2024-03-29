@@ -66,23 +66,19 @@ cocktailsRouter.get('/:id', async (req, res, next) => {
 cocktailsRouter.post(
   '/',
   auth,
-  permit('user'),
+  permit('admin', 'user'),
   imagesUpload.single('image'),
   async (req: RequestWithUser, res, next) => {
     try {
       const userId = req.user?._id;
-      const ingredients = req.body.ingredients;
-
-      const parsedData = ingredients.map((ingredient: string) =>
-        JSON.parse(ingredient),
-      );
+      const ingredientsData = req.body.ingredients;
 
       const cocktailData: CocktailMutation = {
         user: userId,
         name: req.body.name,
         image: req.file ? req.file.filename : null,
         recipe: req.body.recipe,
-        ingredients: parsedData,
+        ingredients: ingredientsData ? JSON.parse(ingredientsData) : [],
       };
 
       const cocktail = new Cocktail(cocktailData);
@@ -90,8 +86,7 @@ cocktailsRouter.post(
       await cocktail.save();
 
       res.send({
-        message: 'Your cocktail is being reviewed by a moderator',
-        cocktail,
+        message: `Your cocktail is being reviewed by a moderator`,
       });
     } catch (e) {
       if (e instanceof mongoose.Error.ValidationError) {
