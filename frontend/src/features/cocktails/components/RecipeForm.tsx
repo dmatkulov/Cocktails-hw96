@@ -21,7 +21,7 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
   const [state, setState] = useState<CocktailMutation>({
     name: '',
     recipe: '',
-    ingredients: '',
+    ingredients: [],
     image: null,
   });
 
@@ -50,7 +50,7 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
   const changeIngredient = (items: IngredientMutation[]) => {
     setState((prevState) => ({
       ...prevState,
-      ingredients: JSON.stringify(items),
+      ingredients: items,
     }));
   };
 

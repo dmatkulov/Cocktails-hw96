@@ -1,6 +1,7 @@
 import React from 'react';
 import AppToolbar from '../AppToolbar/AppToolbar';
 import { Box, Container } from '@mui/material';
+import ToastMessage from '../../ToastContainer/ToastMessage';
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
@@ -17,6 +18,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         <AppToolbar />
       </header>
       <main>
+        <ToastMessage />
         <Box component="section">{children}</Box>
       </main>
     </Container>

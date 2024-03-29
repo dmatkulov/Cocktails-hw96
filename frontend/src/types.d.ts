@@ -36,7 +36,7 @@ export interface CocktailMutation {
   name: string;
   image: File | null;
   recipe: string;
-  ingredients: string;
+  ingredients: IngredientMutation[];
 }
 
 export interface RegisterMutation {

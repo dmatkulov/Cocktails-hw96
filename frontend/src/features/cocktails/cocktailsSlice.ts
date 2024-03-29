@@ -88,8 +88,9 @@ export const cocktailSlice = createSlice({
       .addCase(publishCocktail.pending, (state) => {
         state.publishLoading = true;
       })
-      .addCase(publishCocktail.fulfilled, (state) => {
+      .addCase(publishCocktail.fulfilled, (state, { payload: message }) => {
         state.publishLoading = false;
+        state.createMessage = message;
       })
       .addCase(publishCocktail.rejected, (state) => {
         state.publishLoading = false;

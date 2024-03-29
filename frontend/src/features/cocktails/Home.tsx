@@ -5,6 +5,7 @@ import { selectCocktails, selectCocktailsLoading } from './cocktailsSlice';
 import { CircularProgress, Container, Grid, Typography } from '@mui/material';
 import { fetchCocktails } from './cocktailsThunks';
 import { selectUser } from '../users/usersSlice';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -43,6 +44,14 @@ const Home: React.FC = () => {
 
       <Grid container item justifyContent="flex-start" spacing={2} pt="60px">
         {contentArea}
+
+        {!cocktails.length && (
+          <Grid item xs={12}>
+            <Typography variant="h6" fontWeight="normal" color="grey">
+              List is empty
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

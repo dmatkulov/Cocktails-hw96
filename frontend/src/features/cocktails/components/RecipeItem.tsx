@@ -11,10 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 import { CocktailApi } from '../../../types';
-import { apiURL } from '../../../utils/constants';
+import { apiURL, routes } from '../../../utils/constants';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../users/usersSlice';
-import AdminActions from './AdminActions';
+import UserActions from './UserActions';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -43,7 +43,7 @@ const RecipeItem: React.FC<Props> = ({ cocktail }) => {
 
   const handleDelete = useCallback(async () => {
     await dispatch(deleteCocktail(cocktail._id)).unwrap();
-    await dispatch(fetchOne(cocktail._id)).unwrap();
+    navigate(routes.home);
   }, [dispatch]);
 
   return (
@@ -81,7 +81,7 @@ const RecipeItem: React.FC<Props> = ({ cocktail }) => {
             mb={2}
           >
             <Typography variant="h4">{cocktail.name}</Typography>
-            <AdminActions
+            <UserActions
               user={user}
               published={cocktail.isPublished}
               isPublishing={isPublishing}

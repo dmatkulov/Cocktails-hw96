@@ -26,14 +26,16 @@ export const createCocktail = createAsyncThunk<
   try {
     const formData = new FormData();
 
-    const keys = Object.keys(cocktailMutation) as (keyof CocktailMutation)[];
-    keys.forEach((key) => {
-      const value = cocktailMutation[key];
+    formData.append('name', cocktailMutation.name);
+    formData.append('recipe', cocktailMutation.recipe);
+    formData.append(
+      'ingredients',
+      JSON.stringify(cocktailMutation.ingredients),
+    );
 
-      if (value !== null) {
-        formData.append(key, value);
-      }
-    });
+    if (cocktailMutation.image) {
+      formData.append('image', cocktailMutation.image);
+    }
 
     const response = await axiosApi.post(axiosRoutes.cocktails, formData);
     return response.data;
@@ -56,10 +58,13 @@ export const fetchOne = createAsyncThunk<CocktailApi, string>(
   },
 );
 
-export const publishCocktail = createAsyncThunk<void, string>(
+export const publishCocktail = createAsyncThunk<CocktailResponse, string>(
   'cocktails/publish',
   async (id) => {
-    await axiosApi.patch(`${axiosRoutes.cocktails}/${id}/togglePublished`);
+    const response = await axiosApi.patch(
+      `${axiosRoutes.cocktails}/${id}/togglePublished`,
+    );
+    return response.data;
   },
 );
 

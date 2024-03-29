@@ -28,6 +28,14 @@ const Profile: React.FC = () => {
             <CardItem cocktail={item} />
           </Grid>
         ))}
+
+        {!cocktails.length && (
+          <Grid item xs={12}>
+            <Typography variant="h6" fontWeight="normal" color="grey">
+              List is empty
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

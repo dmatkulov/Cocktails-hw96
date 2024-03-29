@@ -11,7 +11,7 @@ interface Props {
   onDelete: () => void;
 }
 
-const AdminActions: React.FC<Props> = ({
+const UserActions: React.FC<Props> = ({
   user,
   published,
   isPublishing,
@@ -39,8 +39,23 @@ const AdminActions: React.FC<Props> = ({
           </Button>
         </Stack>
       )}
+      {user && user.role === 'user' && (
+        <Stack direction="row">
+          {!published && (
+            <Button
+              size="small"
+              variant="contained"
+              disableElevation
+              disabled={isDeleting}
+              onClick={onDelete}
+            >
+              {isDeleting ? 'Deleting' : 'Delete'}
+            </Button>
+          )}
+        </Stack>
+      )}
     </>
   );
 };
 
-export default AdminActions;
+export default UserActions;

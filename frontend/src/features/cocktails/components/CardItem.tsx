@@ -23,7 +23,7 @@ import {
   selectCocktailsDeleteLoading,
   selectCocktailsPublishLoading,
 } from '../cocktailsSlice';
-import AdminActions from './AdminActions';
+import UserActions from './UserActions';
 
 interface Props {
   cocktail: Cocktail;
@@ -68,6 +68,10 @@ const CardItem: React.FC<Props> = ({ cocktail }) => {
             height: '200px',
             backgroundColor: 'rgba(0,0,0,0.8)',
             p: 1,
+            transition: 'width 0.3s ease-in-out',
+            '&:hover': {
+              width: '125%',
+            },
           }}
         >
           {user && !cocktail.isPublished && (
@@ -97,7 +101,7 @@ const CardItem: React.FC<Props> = ({ cocktail }) => {
               Read more
             </Button>
           </Grid>
-          <AdminActions
+          <UserActions
             user={user}
             published={cocktail.isPublished}
             isPublishing={isPublishing}

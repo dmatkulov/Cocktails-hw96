@@ -73,11 +73,9 @@ const UserMenu: React.FC<Props> = ({ user }) => {
             My cocktails
           </MenuItem>
         )}
-        {user && user.role === 'user' && (
-          <MenuItem onClick={() => navigate(routes.newCocktail)}>
-            Add new cocktail
-          </MenuItem>
-        )}
+        <MenuItem onClick={() => navigate(routes.newCocktail)}>
+          Add new cocktail
+        </MenuItem>
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
       </Menu>
     </>
