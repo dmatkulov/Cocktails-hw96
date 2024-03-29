@@ -7,7 +7,11 @@ export interface RequestWithUser extends Request {
   user?: HydratedDocument<UserFields>;
 }
 
-const auth = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+const auth = async (
+  req: RequestWithUser,
+  res: Response,
+  next: NextFunction,
+) => {
   const headerValue = req.get('Authorization');
 
   if (!headerValue) {

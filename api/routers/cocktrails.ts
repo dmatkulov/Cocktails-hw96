@@ -78,16 +78,14 @@ cocktailsRouter.post(
         name: req.body.name,
         image: req.file ? req.file.filename : null,
         recipe: req.body.recipe,
-        ingredients: ingredientsData ? JSON.parse(ingredientsData) : [],
+        ingredients: JSON.parse(ingredientsData),
       };
 
       const cocktail = new Cocktail(cocktailData);
 
       await cocktail.save();
 
-      res.send({
-        message: `Your cocktail is being reviewed by a moderator`,
-      });
+      res.send({ message: 'Your cocktail is being reviewed by a moderator' });
     } catch (e) {
       if (e instanceof mongoose.Error.ValidationError) {
         return res.status(422).send(e);
@@ -112,7 +110,7 @@ cocktailsRouter.patch(
         return res.status(404).send({ error: 'Wrong ID!' });
       }
 
-      const cocktail = await Cocktail.findByIdAndUpdate(
+      await Cocktail.findByIdAndUpdate(
         id,
         {
           isPublished: true,
@@ -120,7 +118,7 @@ cocktailsRouter.patch(
         { new: true },
       );
 
-      return res.send({ message: 'Cocktail is published', cocktail });
+      return res.send({ message: 'Successfully published' });
     } catch (e) {
       return next(e);
     }
@@ -130,7 +128,7 @@ cocktailsRouter.patch(
 cocktailsRouter.delete(
   '/:id',
   auth,
-  permit('admin'),
+  permit('admin', 'user'),
   async (req, res, next) => {
     try {
       const id = req.params.id;
