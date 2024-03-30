@@ -91,6 +91,8 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
         <Grid item xs>
           <TextField
             fullWidth
+            multiline
+            rows={3}
             type="text"
             label="Recipe"
             name="recipe"

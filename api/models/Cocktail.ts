@@ -31,16 +31,22 @@ const CocktailSchema = new mongoose.Schema<CocktailFields>({
   ingredients: {
     type: [
       {
-        name: String,
-        amount: String,
+        name: {
+          type: String,
+          required: [true, 'Ingredient name required'],
+        },
+        amount: {
+          type: String,
+          required: [true, 'Ingredient amount required'],
+        },
       },
     ],
-    required: [true, 'Ingredients must be present'],
+    required: true,
     validate: {
       validator: (value: Ingredient[]) => {
         return value.length > 0;
       },
-      message: 'Cannot be empty',
+      message: 'Ingredients must be present',
     },
   },
   isPublished: {

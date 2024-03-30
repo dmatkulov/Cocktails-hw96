@@ -53,7 +53,7 @@ const IngredientForm: React.FC<Props> = ({ onChange, getFieldError }) => {
     <>
       {ingredients.map((ingredient, i: number) => (
         <Box key={i} mt={1}>
-          <Grid container item spacing={2} alignItems="center" mb={1}>
+          <Grid container item spacing={2} alignItems="start" mb={1}>
             <Grid item xs={7}>
               <TextField
                 fullWidth
@@ -62,8 +62,8 @@ const IngredientForm: React.FC<Props> = ({ onChange, getFieldError }) => {
                 name="name"
                 type="text"
                 value={ingredient.name}
-                error={Boolean(getFieldError('ingredients'))}
-                helperText={getFieldError('ingredients')}
+                error={Boolean(getFieldError(`ingredients.${i}.name`))}
+                helperText={getFieldError(`ingredients.${i}.name`)}
                 onChange={(event) => changeIngredient(event, i)}
               />
             </Grid>
@@ -74,8 +74,8 @@ const IngredientForm: React.FC<Props> = ({ onChange, getFieldError }) => {
                 name="amount"
                 type="text"
                 value={ingredient.amount}
-                error={Boolean(getFieldError('ingredients'))}
-                helperText={getFieldError('ingredients')}
+                error={Boolean(getFieldError(`ingredients.${i}.amount`))}
+                helperText={getFieldError(`ingredients.${i}.amount`)}
                 onChange={(event) => changeIngredient(event, i)}
               />
             </Grid>
@@ -89,7 +89,7 @@ const IngredientForm: React.FC<Props> = ({ onChange, getFieldError }) => {
             <Grid item xs={1}>
               {ingredients.length - 1 === i && (
                 <IconButton onClick={addIngredient}>
-                  <AddCircleIcon color="primary" fontSize="large" />
+                  <AddCircleIcon color="primary" />
                 </IconButton>
               )}
             </Grid>

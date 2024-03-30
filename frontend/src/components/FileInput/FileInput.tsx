@@ -53,11 +53,12 @@ const FileInput: React.FC<Props> = ({
             error={Boolean(getFieldError('image'))}
             helperText={getFieldError('image')}
             onClick={activateInput}
+            size="small"
           />
         </Grid>
         <Grid item>
           <Button variant="contained" onClick={activateInput}>
-            Browse
+            Upload
           </Button>
         </Grid>
       </Grid>
