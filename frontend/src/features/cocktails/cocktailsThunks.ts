@@ -18,6 +18,16 @@ export const fetchCocktails = createAsyncThunk<Cocktail[]>(
   },
 );
 
+export const fetchByAuthor = createAsyncThunk<Cocktail[], string>(
+  'cocktails/fetchByAuthor',
+  async (id) => {
+    const url = axiosRoutes.cocktails + '?author=' + id;
+    const response = await axiosApi.get<Cocktail[]>(url);
+
+    return response.data ?? [];
+  },
+);
+
 export const createCocktail = createAsyncThunk<
   CocktailResponse,
   CocktailMutation,

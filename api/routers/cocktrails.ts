@@ -12,20 +12,21 @@ const cocktailsRouter = Router();
 cocktailsRouter.get('/', user, async (req: RequestWithUser, res, next) => {
   try {
     let filter: FilterQuery<CocktailFields> = {};
-
+    const authorId = req.query.author as string;
     if (req.user) {
       const isAdmin = req.user.role === 'admin';
       const isUser = req.user.role === 'user';
 
       if (isAdmin) {
         filter = {};
-      } else if (isUser) {
-        filter = {
-          $or: [
-            { isPublished: true },
-            { user: req.user._id, isPublished: false },
-          ],
-        };
+      }
+
+      if (isUser) {
+        filter = { isPublished: true };
+
+        if (isUser && authorId) {
+          filter = { user: authorId };
+        }
       }
     } else {
       filter = { isPublished: true };

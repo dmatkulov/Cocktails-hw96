@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectCocktails, selectCocktailsLoading } from './cocktailsSlice';
-import { fetchCocktails } from './cocktailsThunks';
 import { CircularProgress, Container, Grid, Typography } from '@mui/material';
 import CardItem from './components/CardItem';
+import { fetchByAuthor } from './cocktailsThunks';
+import { selectUser } from '../users/usersSlice';
 
 const Profile: React.FC = () => {
-  const dispatch = useAppDispatch();
   const cocktails = useAppSelector(selectCocktails);
   const isLoading = useAppSelector(selectCocktailsLoading);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    dispatch(fetchCocktails());
-  }, [dispatch]);
+    if (user) {
+      dispatch(fetchByAuthor(user._id));
+    }
+  }, [dispatch, user]);
 
   return (
     <Container disableGutters>

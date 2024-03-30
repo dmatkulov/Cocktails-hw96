@@ -9,6 +9,7 @@ import { RootState } from '../../app/store';
 import {
   createCocktail,
   deleteCocktail,
+  fetchByAuthor,
   fetchCocktails,
   fetchOne,
   publishCocktail,
@@ -21,9 +22,9 @@ interface CocktailsState {
   fetchOneLoading: boolean;
   createLoading: boolean;
   createError: ValidationError | null;
+  deleteLoading: boolean;
   createMessage: CocktailResponse | null;
   publishLoading: boolean;
-  deleteLoading: boolean;
 }
 
 const initialState: CocktailsState = {
@@ -56,6 +57,18 @@ export const cocktailSlice = createSlice({
         state.items = cocktails;
       })
       .addCase(fetchCocktails.rejected, (state) => {
+        state.fetchLoading = false;
+      });
+
+    builder
+      .addCase(fetchByAuthor.pending, (state) => {
+        state.fetchLoading = true;
+      })
+      .addCase(fetchByAuthor.fulfilled, (state, { payload: cocktails }) => {
+        state.fetchLoading = false;
+        state.items = cocktails;
+      })
+      .addCase(fetchByAuthor.rejected, (state) => {
         state.fetchLoading = false;
       });
 
