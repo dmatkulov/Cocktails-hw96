@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectCocktails, selectCocktailsLoading } from './cocktailsSlice';
 import { CircularProgress, Container, Grid, Typography } from '@mui/material';
 import CardItem from './components/CardItem';
-import { fetchByAuthor } from './cocktailsThunks';
+import { fetchCocktails } from './cocktailsThunks';
 import { selectUser } from '../users/usersSlice';
 
 const Profile: React.FC = () => {
@@ -14,7 +14,7 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(fetchByAuthor(user._id));
+      dispatch(fetchCocktails(user._id));
     }
   }, [dispatch, user]);
 

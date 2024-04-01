@@ -151,6 +151,7 @@ const RegisterUser: React.FC = () => {
                 label="Avatar"
                 name="avatar"
                 onChange={fileInputChangeHandler}
+                getFieldError={getFieldError}
               />
             </Grid>
           </Grid>

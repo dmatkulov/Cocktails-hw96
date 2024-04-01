@@ -4,7 +4,7 @@ import cors from 'cors';
 
 import config from './config';
 import usersRouter from './routers/users';
-import cocktailsRouter from './routers/cocktrails';
+import cocktailsRouter from './routers/cocktails';
 
 const app = express();
 const port = 8000;

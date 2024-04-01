@@ -58,6 +58,7 @@ const CardItem: React.FC<Props> = ({ cocktail }) => {
           maxWidth: 345,
           display: 'flex',
           flexDirection: 'column',
+          mb: 5,
         }}
       >
         <CardMedia
@@ -84,7 +85,6 @@ const CardItem: React.FC<Props> = ({ cocktail }) => {
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'space-between',
-            flexGrow: 1,
             pb: 0,
           }}
         >

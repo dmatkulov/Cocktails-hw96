@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CocktailMutation, IngredientMutation } from '../../../types';
-import { Box, Grid, TextField } from '@mui/material';
+import { Alert, Box, Grid, TextField } from '@mui/material';
 import FileInput from '../../../components/FileInput/FileInput';
 import IngredientForm from './IngredientForm';
 import { useAppSelector } from '../../../app/hooks';
@@ -62,6 +62,8 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
     }
   };
 
+  const ingredientsError = getFieldError('ingredients') || null;
+
   const onSubmitForm = async (event: React.FormEvent) => {
     event.preventDefault();
     onSubmit(state);
@@ -83,6 +85,10 @@ const RecipeForm: React.FC<Props> = ({ onSubmit }) => {
           />
         </Grid>
         <Grid item xs>
+          {ingredientsError && (
+            <Alert severity="error">{ingredientsError}</Alert>
+          )}
+
           <IngredientForm
             onChange={changeIngredient}
             getFieldError={getFieldError}

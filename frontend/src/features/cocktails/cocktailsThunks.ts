@@ -10,20 +10,15 @@ import axiosApi from '../../utils/axiosApi';
 import { axiosRoutes } from '../../utils/constants';
 import { isAxiosError } from 'axios';
 
-export const fetchCocktails = createAsyncThunk<Cocktail[]>(
+export const fetchCocktails = createAsyncThunk<Cocktail[], string | undefined>(
   'cocktails/fetchAll',
-  async () => {
-    const response = await axiosApi.get<Cocktail[]>(axiosRoutes.cocktails);
-    return response.data ?? [];
-  },
-);
+  async (id = undefined) => {
+    let url = axiosRoutes.cocktails;
 
-export const fetchByAuthor = createAsyncThunk<Cocktail[], string>(
-  'cocktails/fetchByAuthor',
-  async (id) => {
-    const url = axiosRoutes.cocktails + '?author=' + id;
+    if (id) {
+      url = axiosRoutes.cocktails + '?author=' + id;
+    }
     const response = await axiosApi.get<Cocktail[]>(url);
-
     return response.data ?? [];
   },
 );
